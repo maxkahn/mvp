@@ -1,0 +1,11 @@
+{
+  "name": "wheretogo",
+  "version": "0.0.1",
+  "main": "server.js",
+  "dependencies": {
+    "express": "4.2.x",
+    "express-session": "1.12.1",
+    "bcrypt-nodejs": "",
+    "mongodb": 
+  }
+}

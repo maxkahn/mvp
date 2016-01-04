@@ -20,7 +20,7 @@ $(document).ready(function() {
         var y = position.coords.latitude;
         //then send it to the server
           //I will have to rewrite this line when I deploy
-        $.post("localhost:3000/", JSON.stringify({x: x, y: y}));
+        $.post("http://localhost:3000/", JSON.stringify({x: x, y: y}));
     }, function(err) {
       console.log("Unable to get current position.");
     });

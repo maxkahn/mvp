@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var cors = require('cors');
 var bcrypt = require('bcrypt-nodejs');
 //what do I need to set up my db?
 var MongoClient = require('mongodb');
@@ -23,11 +24,16 @@ var connection = mongoose.createConnection('mongodb://localhost:27017/app');
 
 var app = express();
 
+app.use(cors());
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
   res.sendfile('index.html');
-})
+});
+
+app.post('/', function(req, res) {
+  res.send("Location posted to server");
+});
 
 //remember that I'll need to change this when I deploy
 var port = 3000;

@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  WhereToGo
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  For urban explorers who are looking for places beyond their comfort zone.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Log the places you've been, and get recommendations for a part of town where you don't usually go. 
 
 ## Problem ##
   > Describe the problem your product solves.
+  It's easy to get in a rut: never going south of Market St, never going east of Divisadero… but do you really get to know your city that way?
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  Find places that you wouldn't have thought of, ones that other people have liked.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "Technology that solves a human problem."
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Username, password, and that's all it takes!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "I never realized what exciting restaurants were in Bernal Heights until I went there on this app's recommendation."
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Start an account at our website, hosted on Heroku.

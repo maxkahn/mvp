@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "express": "4.2.x",
     "express-session": "1.12.1",
-    "bcrypt-nodejs": "",
-    "mongodb": 
+    "kerberos": "file:kerberos",
+    "mongodb": "^2.1.3"
   }
 }

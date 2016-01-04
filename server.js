@@ -23,6 +23,8 @@ var connection = mongoose.createConnection('mongodb://localhost:27017/app');
 
 var app = express();
 
+app.use(express.static('public'));
+
 app.get('/', function(req, res) {
   res.sendfile('index.html');
 })

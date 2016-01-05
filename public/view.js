@@ -40,6 +40,12 @@ $(document).ready(function() {
       console.log("data received from AJAX get");
       console.log(data);
       //oh, we should *display* this data somewhere
+      for (var i = 0; i < data.length; i++) {
+        var elem = $('<li></li>').addClass('location');
+          //format the lat and longi for legibility with .toFixed
+        elem.text(data[i].lat.toFixed(2) + " , " + data[i].longi.toFixed(2));
+        $('.old-places').append(elem);
+      }
     });
     // .always(function(data) {
     //   console.log(data);
@@ -49,6 +55,12 @@ $(document).ready(function() {
   //think for 10 seconds! this is a GET, not a POST
   $('.new-place').on('click', function() {
     $.getJSON("http://localhost:3000/new", function(data) {
+      //data is an array of entries in the database
+      //I want to create a red dot
+      //and put that dot on the img
+      $('.suggestion').text(data);
+      var marker = $('<span class="flashy"></span>');
+      $('.display').prepend(marker);
       console.log(data);
     });
   });

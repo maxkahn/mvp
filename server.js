@@ -86,7 +86,7 @@ app.get('/refresh', function(req, res) {
       throw err;
     }
     else {
-      console.log('db queried for data: ', JSON.stringify(docs));
+      console.log('db queried for data');
       res.send(JSON.stringify(docs));
     }
   });
@@ -102,7 +102,10 @@ app.get('/new', function(req, res) {
     //send to opposite sector
       //a random point within the sector, but let's work on this for now
 
-  Place.find({}, function(err, docs) {
+  //we find how many locations appear in any one sector
+  //also, as soon as we have more users, this should be by current user,
+  //not literally all places
+  Place.find({username: "John Doe"}, function(err, docs) {
     var sectors = {};
     for (var i = 0; i < docs.length; i++) {
       if (sectors.hasOwnProperty(docs[i].sector)) {

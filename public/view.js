@@ -8,7 +8,9 @@ $(document).ready(function() {
     //somewhere in the body of this get, I have to just render the page they send back…
     $.get("http://localhost:3000/login", function(data) {
       console.log(data);
-      window.location = data;
+      if (data[0] && data[0] === '.') {
+        window.location = data;
+      }
     });
   });
 
@@ -67,16 +69,16 @@ $(document).ready(function() {
       //data is an array of entries in the database
       //I want to create a red dot
       //and put that dot on the img
-      $('.suggestion').text(data);
+      // $('.suggestion').text(data);
       //to position the circle: there are 9 possibilities
       //I'm given a number, and an implicit number of sectors
       //so at the 1/6, 3/6, and 5/6 marks
         //ie the odd ticks from 0 to 2n-1, where n is the sidelength
       //so I need to extract a row and column
         //row is Math.ceil(data / sidelength)
-        var row = Math.ceil(data / 3);
+        var row = Math.ceil(data / 3) || 1;
         //column is data % sidelength + 1
-        var col = ((data - 1) % 3) + 1;
+        var col = ((data - 1) % 3) + 1 || 1;
       //then, I use the column to give me the x, and the row to give me the y
       var cx = (col * 10) + 20;
       var cy = (row * 16);

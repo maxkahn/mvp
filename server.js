@@ -99,9 +99,9 @@ app.get('/login', function(req, res) {
   res.send('./login.html');
 });
 
-app.get('/', function(req, res) {
-  res.send('./index.html');
-})
+// app.get('/', function(req, res) {
+//   res.send('index.html');
+// });
 
 app.post('/login', function(req, res) {
   var yourName = req.body.name;
@@ -129,7 +129,8 @@ app.post('/login', function(req, res) {
     }
     req.session.user = yourName;
     console.log(req.session.user);
-    res.redirect('/');
+    res.send('./index.html')
+    // res.redirect('/');
   });
 });
 
@@ -138,7 +139,7 @@ app.post('/login', function(req, res) {
 app.get('/refresh', restrict, function(req, res) {
   console.log('AJAX get received at server');
   //query the db
-  Place.find({username: "John Doe"}, function(err, docs) {
+  Place.find({username: req.session.user}, function(err, docs) {
     if (err) {
       throw err;
     }
@@ -162,7 +163,7 @@ app.get('/new', restrict, function(req, res) {
   //we find how many locations appear in any one sector
   //also, as soon as we have more users, this should be by current user,
   //not literally all places
-  Place.find({username: "John Doe"}, function(err, docs) {
+  Place.find({username: req.session.user}, function(err, docs) {
     var sectors = {};
     for (var i = 0; i < docs.length; i++) {
       if (sectors.hasOwnProperty(docs[i].sector)) {
@@ -202,7 +203,7 @@ app.post('/', restrict, function(req, res) {
   //start with 9 sectors
   var sector = getSector(lat, longi, 3);
   var newPlace = new Place({longi: location["x"], lat: location["y"], 
-    username: "John Doe", sector: sector});
+    username: req.session.user, sector: sector});
   //then put it in the database
   newPlace.save(function(err) {
     if (err) {

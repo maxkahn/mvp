@@ -3,11 +3,6 @@
 
 
 //pure jQuery
-
-window.position = navigator.geolocation.getCurrentPosition(function(position) {
-
-})
-
 $(document).ready(function() {
   $('.current-place').on('click', function() {
     //here, I get the current location
@@ -18,12 +13,23 @@ $(document).ready(function() {
         //I extract the coordinates
         var x = position.coords.longitude;
         var y = position.coords.latitude;
+        console.log(JSON.stringify({x: x, y: y}));
         //then send it to the server
           //I will have to rewrite this line when I deploy
-        $.post("http://localhost:3000/", JSON.stringify({x: x, y: y}));
+//           $.ajax({
+//   type: "POST",
+//   url: "http://localhost:3000/",
+//   data: JSON.stringify({x: x, y: y}),
+//   success: function() {console.log("message has left the client");},
+//   dataType: "application/json"
+// });
+        $.post("http://localhost:3000/", JSON.stringify({x: x, y: y}),
+          function() {
+            console.log();
+          }, "content-type:application/json");
     }, function(err) {
       console.log("Unable to get current position.");
     });
     //then send an AJAX POST to the server
-  })
+  });
 });

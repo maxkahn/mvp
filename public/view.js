@@ -32,4 +32,16 @@ $(document).ready(function() {
     });
     //then send an AJAX POST to the server
   });
+
+
+  $('.places-so-far').on('click', function() {
+    console.log("AJAX get triggered");
+    $.getJSON("http://localhost:3000/refresh", function(data) {
+      console.log("data received from AJAX get");
+      console.log(data);
+    })
+    // .always(function(data) {
+    //   console.log(data);
+    // });
+  });
 });

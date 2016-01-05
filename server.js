@@ -71,7 +71,7 @@ var restrict = function(req, res, next) {
     next();
   }
   else {
-    res.redirect('login');
+    res.send('./login.html');
   }
 };
 
@@ -95,7 +95,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/login', function(req, res) {
   //basically, here I need a new html page entirely
   //and I'll just serve that
-  res.sendfile('./public/login.html');
+  console.log('GET to login arrived at server');
+  res.send('./login.html');
 });
 
 app.post('/login', function(req, res) {

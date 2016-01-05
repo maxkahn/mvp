@@ -5,7 +5,11 @@
 //pure jQuery
 $(document).ready(function() {
   $('.testing').on('click', function() {
-    $.get("http://localhost:3000/login");
+    //somewhere in the body of this get, I have to just render the page they send back…
+    $.get("http://localhost:3000/login", function(data) {
+      console.log(data);
+      window.location = data;
+    });
   });
 
 

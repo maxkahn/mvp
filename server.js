@@ -18,7 +18,7 @@ var mongoURI = "mongodb://heroku_6ngl7lz5:nq10k8dkkt8n5bhilig5dptin3@ds039185.mo
 var localMongo = 'mongodb://localhost:27017/app';
 
 //replace mongoURI with localMongo to run locally
-var connection = mongoose.createConnection(localMongo);
+var connection = mongoose.createConnection(mongoURI);
 // connection.once('open', function() {
 //   var userSchema = mongoose.Schema({
 //     name: String,

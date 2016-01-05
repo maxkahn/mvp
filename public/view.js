@@ -39,9 +39,17 @@ $(document).ready(function() {
     $.getJSON("http://localhost:3000/refresh", function(data) {
       console.log("data received from AJAX get");
       console.log(data);
-    })
+      //oh, we should *display* this data somewhere
+    });
     // .always(function(data) {
     //   console.log(data);
     // });
+  });
+
+  //think for 10 seconds! this is a GET, not a POST
+  $('.new-place').on('click', function() {
+    $.getJSON("http://localhost:3000/new", function(data) {
+      console.log(data);
+    });
   });
 });

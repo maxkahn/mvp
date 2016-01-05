@@ -50,7 +50,8 @@ connection.once('open', function() {
   var placeSchema = mongoose.Schema({
     longi: Number,
     lat: Number,
-    username: String 
+    username: String,
+    sector: Number 
   });
   var Place = connection.model('Place', placeSchema);
 
@@ -93,6 +94,40 @@ app.get('/refresh', function(req, res) {
   //res.sendfile('index.html');
 });
 
+app.get('/new', function(req, res) {
+  //do some calculations to find the next place
+    //here's how: each place gets assigned to a sector
+      //I *really* should modularize some of this code
+    //one of those sectors predominates
+    //send to opposite sector
+      //a random point within the sector, but let's work on this for now
+
+  Place.find({}, function(err, docs) {
+    var sectors = {};
+    for (var i = 0; i < docs.length; i++) {
+      if (sectors.hasOwnProperty(docs[i].sector)) {
+        sectors[docs[i]["sector"]]++;
+      }
+      else {
+        sectors[docs[i]["sector"]] = 1;
+      }
+    }
+
+    //now given an object with a bunch of numbers, we find the max
+    var temp;
+    var tempMax;
+    for (key in sectors) {
+      if (!temp || sectors[key] > tempMax) {
+        temp = key;
+        tempMax = sectors[key];
+      }
+    }
+    res.send(JSON.stringify(newSector(temp, 3)));
+  });
+
+  //then send a sector
+});
+
 
 
 app.post('/', function(req, res) {
@@ -102,7 +137,12 @@ app.post('/', function(req, res) {
     //but it does seem to work
   var location = JSON.parse(Object.keys(req.body)[0]);
   console.log(typeof location, location);
-  var newPlace = new Place({longi: location["x"], lat: location["y"], username: "John Doe"});
+  var longi = location["x"];
+  var lat = location["y"];
+  //start with 9 sectors
+  var sector = getSector(lat, longi, 3);
+  var newPlace = new Place({longi: location["x"], lat: location["y"], 
+    username: "John Doe", sector: sector});
   //then put it in the database
   newPlace.save(function(err) {
     if (err) {
@@ -121,3 +161,37 @@ var port = 3000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
+
+//takes latitude and longitude,
+//returns a single number representing the sector
+//out of sidelength ^ 2 sectors
+var getSector = function(lat, longi, sidelength) {
+  var westBound = -122.55;
+  var eastBound = -122.32;
+  var northBound = 37.82;
+  var southBound = 37.70;
+  //to get the column, take the mod
+  //to get the row, take the quot
+  var col = Math.ceil((longi-westBound) * sidelength / (eastBound - westBound));
+  var row = Math.ceil((lat - southBound) * sidelength / (northBound - southBound));
+
+  return (row - 1) * sidelength + col;
+};
+
+//given the number of a sector and the total number of sectors
+//returns a *different* sector, hopefully far away
+var newSector = function(sect, sidelength) {
+  var col = (sect % sidelength) + 1;
+  var row = Math.ceil(sect / sidelength);
+  var newCol = 1 + sidelength - col;
+  var newRow = 1 + sidelength - row;
+  var candidate = (newRow - 1) * sidelength + newCol;
+  if (candidate !== sect) {
+    return candidate;
+  }
+  else {
+    return 1;
+  }
+};
+
+//I should totally normalize these somehow

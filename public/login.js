@@ -1,4 +1,4 @@
-var path = ENV["PATH"] || "http://localhost:3000"
+var path = process.env.PATH || "http://localhost:3000"
 $(document).ready(function() {
 
   $('button').on('click', function() {

@@ -16,7 +16,7 @@ var Admin = mongoose.mongo.Admin;
 //also, not totally clear on createConnection vs connect
 
 var localMongo = 'mongodb://localhost:27017/app';
-var mongoURI = ENV["MONGOLAB_URI"] || localMongo;
+var mongoURI = process.env.MONGOLAB_URI || localMongo;
 
 //replace mongoURI with localMongo to run locally
 var connection = mongoose.createConnection(mongoURI);

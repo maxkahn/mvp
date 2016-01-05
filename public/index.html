@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    Hello world.
+    Welcome!
     <!-- here I need some kind of button for a recommendation
     and I also need the list of previous places visited -->
 <!--     <button class="new-place"> Click here for a new place to try!
@@ -33,8 +33,19 @@
     </div>
 <!-- TODO: crop this picture so it reflects my coordinates
   note that this image is in the public domain (taken by NASA) -->
-  <div class="display">
-    <img class="map" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/San_Francisco_Landsat7_Lg.jpg">
+  <div>
+    <svg  class="display" width="100%" height="100%" viewBox="0 0 100 100">
+    <image class="map" xlink:href="https://upload.wikimedia.org/wikipedia/commons/a/a5/San_Francisco_Landsat7_Lg.jpg"
+    x="0" y="0" height="100" width="100"/>
+    <!-- start by hard-coding the grid
+    we can adjust later, time permitting
+    and check whether the coords are relative to the viewbox or what 
+    also, I should really get the height-->
+    <line x1="60" y1="100" x2="60" y2="0" stroke="red" stroke-width="1"/>
+    <line x1="40" y1="100" x2="40" y2="0" stroke="red" stroke-width="1"/>
+    <line x1="20" y1="33" x2="80" y2="33" stroke="red" stroke-width="1"/>
+    <line x1="20" y1="67" x2="80" y2="67" stroke="red" stroke-width="1"/>
+    </svg>
   </div>
   </body>
 </html>

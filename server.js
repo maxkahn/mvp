@@ -14,7 +14,11 @@ var Admin = mongoose.mongo.Admin;
 //and that will make it exist
 //do I get any security features at all?
 //also, not totally clear on createConnection vs connect
-var connection = mongoose.createConnection('mongodb://localhost:27017/app');
+var mongoURI = "mongodb://heroku_6ngl7lz5:nq10k8dkkt8n5bhilig5dptin3@ds039185.mongolab.com:39185/heroku_6ngl7lz5";
+var localMongo = 'mongodb://localhost:27017/app';
+
+//replace mongoURI with localMongo to run locally
+var connection = mongoose.createConnection(mongoURI);
 // connection.once('open', function() {
 //   var userSchema = mongoose.Schema({
 //     name: String,
@@ -218,7 +222,7 @@ app.post('/', restrict, function(req, res) {
 });
 
 //remember that I'll need to change this when I deploy
-var port = 3000;
+var port = process.env.port || 3000;
 
 app.listen(port, function() {
   console.log("Listening on " + port);

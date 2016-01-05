@@ -1,12 +1,12 @@
 //there's undoubtedly a right way to do this
 //and that's so not the way I'm going for
-
+var path = process.env.path;
 
 //pure jQuery
 $(document).ready(function() {
   $('.testing').on('click', function() {
     //somewhere in the body of this get, I have to just render the page they send back…
-    $.get("http://localhost:3000/login", function(data) {
+    $.get(path + "/login", function(data) {
       console.log(data);
       if (data[0] && data[0] === '.') {
         window.location = data;
@@ -34,7 +34,7 @@ $(document).ready(function() {
 //   success: function() {console.log("message has left the client");},
 //   dataType: "application/json"
 // });
-        $.post("http://localhost:3000/", {x: x, y: y},
+        $.post(path, {x: x, y: y},
           function(data) {
             console.log(data);
           }, "content-type:application/json");
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
   $('.places-so-far').on('click', function() {
     console.log("AJAX get triggered");
-    $.getJSON("http://localhost:3000/refresh", function(data) {
+    $.getJSON(path + "/refresh", function(data) {
       console.log("data received from AJAX get");
       console.log(data);
       //oh, we should *display* this data somewhere
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
   //think for 10 seconds! this is a GET, not a POST
   $('.new-place').on('click', function() {
-    $.getJSON("http://localhost:3000/new", function(data) {
+    $.getJSON(path + "/new", function(data) {
       //data is an array of entries in the database
       //I want to create a red dot
       //and put that dot on the img

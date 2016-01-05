@@ -60,6 +60,8 @@ $(document).ready(function() {
       //and put that dot on the img
       $('.suggestion').text(data);
       var marker = $('<span class="flashy"></span>');
+      //really, I should be toggling class or sth here
+        //otherwise, I get too many elements on top of each other
       $('.display').prepend(marker);
       console.log(data);
     });

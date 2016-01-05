@@ -8,9 +8,8 @@
   border-radius: 10px;
   width: 10px;
   height: 10px;
-  color: red;
   background-color: red;
-  top: 500;
-  left: 500;
+  top: 0px;
+  left: 0px;
   position: absolute;
 }

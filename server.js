@@ -18,7 +18,7 @@ var mongoURI = "mongodb://heroku_6ngl7lz5:nq10k8dkkt8n5bhilig5dptin3@ds039185.mo
 var localMongo = 'mongodb://localhost:27017/app';
 
 //replace mongoURI with localMongo to run locally
-var connection = mongoose.createConnection(mongoURI);
+var connection = mongoose.createConnection(localMongo);
 // connection.once('open', function() {
 //   var userSchema = mongoose.Schema({
 //     name: String,
@@ -222,7 +222,7 @@ app.post('/', restrict, function(req, res) {
 });
 
 //remember that I'll need to change this when I deploy
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 
 app.listen(port, function() {
   console.log("Listening on " + port);

@@ -34,7 +34,7 @@ $(document).ready(function() {
 //   success: function() {console.log("message has left the client");},
 //   dataType: "application/json"
 // });
-        $.post("http://localhost:3000/", JSON.stringify({x: x, y: y}),
+        $.post("http://localhost:3000/", {x: x, y: y},
           function(data) {
             console.log(data);
           }, "content-type:application/json");

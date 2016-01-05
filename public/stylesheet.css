@@ -4,12 +4,5 @@
 }
 
 .flashy {
-  border: 10px solid red;
-  border-radius: 10px;
-/*  width: 10px;
-  height: 10px;*/
-  background-color: red;
-/*  top: 0px;
-  left: 0px;*/
-/*  position: absolute;*/
+  visibility: hidden;
 }

@@ -196,7 +196,8 @@ app.post('/', restrict, function(req, res) {
   console.log("posting");
   //no way is this the best way to parse the data from the client
     //but it does seem to work
-  var location = JSON.parse(Object.keys(req.body)[0]);
+  // var location = JSON.parse(Object.keys(req.body)[0]);
+  var location = req.body;
   console.log(typeof location, location);
   var longi = location["x"];
   var lat = location["y"];

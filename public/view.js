@@ -59,10 +59,15 @@ $(document).ready(function() {
       //I want to create a red dot
       //and put that dot on the img
       $('.suggestion').text(data);
-      var marker = $('<span class="flashy"></span>');
+      //before I try generating a circle dynamically,
+      //let me see if I can add one statically
+      // var $marker = $('<circle cx="60" cy="60" r="2" fill="red" stroke="red" stroke-width="1"/>');
       //really, I should be toggling class or sth here
         //otherwise, I get too many elements on top of each other
-      $('.display').prepend(marker);
+      //in here, I have to get the data and process into an x and y
+        //relative to my svg display
+        $('.arehere').attr({cx: "60", cy: "60"});
+      // $('.display').append($marker);
       console.log(data);
     });
   });

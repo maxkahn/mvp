@@ -62,9 +62,23 @@ connection.once('open', function() {
 //   });
 // });
 
+//middleware to handle authentication
+  //problem: the session server-side module is not designed for production environments
+    //not sure what the worst that could happen would be
+var restrict = function(req, res, next) {
+  if (req.session.user) {
+    //the next call is what makes this middleware
+    next();
+  }
+  else {
+    res.redirect('login');
+  }
+};
+
 var app = express();
 
 app.use(cors());
+app.use(session({secret: 'ready for primetime'}));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 //NB: we need this next line to get the data to the server
@@ -78,7 +92,21 @@ app.use(bodyParser.urlencoded({extended: true}));
 //   next();
 // });
 
-app.get('/refresh', function(req, res) {
+app.get('/login', function(req, res) {
+  //basically, here I need a new html page entirely
+  //and I'll just serve that
+  res.sendfile('./public/login.html');
+});
+
+app.post('/login', function(req, res) {
+  //worry about a signup page later
+  //for now, if the username/password combo aren't in the db
+    //we'll just create that entry
+});
+
+
+//the AJAX calls below here are behind the authentication barrier
+app.get('/refresh', restrict, function(req, res) {
   console.log('AJAX get received at server');
   //query the db
   Place.find({username: "John Doe"}, function(err, docs) {
@@ -94,7 +122,7 @@ app.get('/refresh', function(req, res) {
   //res.sendfile('index.html');
 });
 
-app.get('/new', function(req, res) {
+app.get('/new', restrict, function(req, res) {
   //do some calculations to find the next place
     //here's how: each place gets assigned to a sector
       //I *really* should modularize some of this code
@@ -133,7 +161,7 @@ app.get('/new', function(req, res) {
 
 
 
-app.post('/', function(req, res) {
+app.post('/', restrict, function(req, res) {
   //in here, I need to extract the data,
   console.log("posting");
   //no way is this the best way to parse the data from the client

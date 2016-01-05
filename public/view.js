@@ -4,6 +4,11 @@
 
 //pure jQuery
 $(document).ready(function() {
+  $('.testing').on('click', function() {
+    $.get("http://localhost:3000/login");
+  });
+
+
   $('.current-place').on('click', function() {
     //here, I get the current location
       //2 args to getCurrentPosition are cb, first is success, 2nd failure
@@ -59,6 +64,24 @@ $(document).ready(function() {
       //I want to create a red dot
       //and put that dot on the img
       $('.suggestion').text(data);
+      //to position the circle: there are 9 possibilities
+      //I'm given a number, and an implicit number of sectors
+      //so at the 1/6, 3/6, and 5/6 marks
+        //ie the odd ticks from 0 to 2n-1, where n is the sidelength
+      //so I need to extract a row and column
+        //row is Math.ceil(data / sidelength)
+        var row = Math.ceil(data / 3);
+        //column is data % sidelength + 1
+        var col = ((data - 1) % 3) + 1;
+      //then, I use the column to give me the x, and the row to give me the y
+      var cx = (col * 10) + 20;
+      var cy = (row * 16);
+      //a lot of the discussion above is full of magic numbers
+        //I will fix that eventually, if I can get this working
+      //given those three choices, multiplying by a fixed value that depends only on the sidelength
+        //and adding a fixed value that depends only on the viewbox
+
+
       //before I try generating a circle dynamically,
       //let me see if I can add one statically
       // var $marker = $('<circle cx="60" cy="60" r="2" fill="red" stroke="red" stroke-width="1"/>');
@@ -66,7 +89,7 @@ $(document).ready(function() {
         //otherwise, I get too many elements on top of each other
       //in here, I have to get the data and process into an x and y
         //relative to my svg display
-        $('.arehere').attr({cx: "60", cy: "60"});
+        $('.arehere').attr({cx: cx.toString(), cy: cy.toString()});
       // $('.display').append($marker);
       console.log(data);
     });

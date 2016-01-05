@@ -3,9 +3,18 @@
 <head>
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="login.js"></script>
   </head>
 
   <body>
     Welcome!
+    <form action="/login" method="post">
+      <label for="name">Username:</label>
+      <input class="name" type="text" id="name"/>
+      <label for="password">Password:</label>
+      <input class="password" type="text" id="password"/>
+
+    </form>
+    <button>Log In.</button>
   </body>
 </html>

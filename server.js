@@ -99,10 +99,38 @@ app.get('/login', function(req, res) {
   res.send('./login.html');
 });
 
+app.get('/', function(req, res) {
+  res.send('./index.html');
+})
+
 app.post('/login', function(req, res) {
+  var yourName = req.body.name;
+  var yourWord = req.body.word;
+  console.log(typeof req.body, req.body);
   //worry about a signup page later
   //for now, if the username/password combo aren't in the db
     //we'll just create that entry
+  //i also have to set the user to something, probably the username
+  User.find({name: yourName, password: yourWord}, function(err, docs) {
+    console.log('query sent to User model: ', docs.length);
+    if (docs.length > 0) {
+      //in the if branch, the user already exists
+      console.log('entered if branch');
+    }
+    else {
+      //in the else branch, I create the user
+      var newUser = new User({name: yourName, password: yourWord});
+      newUser.save(function(err) {
+        console.log('entered save query');
+        if (err) {
+          throw  err;
+        }
+      });
+    }
+    req.session.user = yourName;
+    console.log(req.session.user);
+    res.redirect('/');
+  });
 });
 
 

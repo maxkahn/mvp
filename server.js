@@ -15,6 +15,33 @@ var Admin = mongoose.mongo.Admin;
 //do I get any security features at all?
 //also, not totally clear on createConnection vs connect
 var connection = mongoose.createConnection('mongodb://localhost:27017/app');
+// connection.once('open', function() {
+//   var userSchema = mongoose.Schema({
+//     name: String,
+//     password: String
+//   });
+//   var User = mongoose.model('User', userSchema);
+//   //default user for testing purposes
+//   var johndoe = new User({name: "John Doe", password: "password"});
+// });
+
+
+//ideally, refactor to take the whole db section out of this file
+  //i'm hoping there's no synchronicity issue
+    //if there is, that would be bad
+  var userSchema = mongoose.Schema({
+    name: String,
+    password: String
+  });
+  var User = mongoose.model('User', userSchema);
+  //default user for testing purposes
+  var johndoe = new User({name: "John Doe", password: "password"});
+
+  var placeSchema = mongoose.Schema({
+    longi: Number,
+    lat: Number
+  });
+  var Place = mongoose.model('Place', placeSchema);
 
 // connection.on('open', function() {
 //   new Admin(connection.db).listDatabases(function (err, result) {
@@ -50,10 +77,12 @@ app.post('/', function(req, res) {
     //but it does seem to work
   var location = JSON.parse(Object.keys(req.body)[0]);
   console.log(typeof location, location);
+  var newPlace = new Place({longi: location["x"], lat: location["y"]});
   //then put it in the database
+  console.log(newPlace);
   //it has x and y coords
     //assume I have a user stored sw else
-  res.send("Location posted to server");
+  res.send("argle");
 });
 
 //remember that I'll need to change this when I deploy

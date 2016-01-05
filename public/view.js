@@ -24,8 +24,8 @@ $(document).ready(function() {
 //   dataType: "application/json"
 // });
         $.post("http://localhost:3000/", JSON.stringify({x: x, y: y}),
-          function() {
-            console.log();
+          function(data) {
+            console.log(data);
           }, "content-type:application/json");
     }, function(err) {
       console.log("Unable to get current position.");

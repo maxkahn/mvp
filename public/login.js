@@ -1,4 +1,4 @@
-
+var path = ENV["PATH"] || "http://localhost:3000"
 $(document).ready(function() {
 
   $('button').on('click', function() {
@@ -6,7 +6,7 @@ $(document).ready(function() {
     var username = $('.name').val();
     var password = $('.password').val();
     var creds = {name: username, word: password};
-    $.post("https://desolate-fjord-6697.herokuapp.com/login", creds, function(data) {
+    $.post(path + "/login", creds, function(data) {
       console.log('json sent to server from login');
       console.log(data);
       //i doubt this will work, but it is the right thing to try

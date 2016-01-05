@@ -14,8 +14,9 @@ var Admin = mongoose.mongo.Admin;
 //and that will make it exist
 //do I get any security features at all?
 //also, not totally clear on createConnection vs connect
-var mongoURI = "mongodb://heroku_6ngl7lz5:nq10k8dkkt8n5bhilig5dptin3@ds039185.mongolab.com:39185/heroku_6ngl7lz5";
+
 var localMongo = 'mongodb://localhost:27017/app';
+var mongoURI = ENV["MONGOLAB_URI"] || localMongo;
 
 //replace mongoURI with localMongo to run locally
 var connection = mongoose.createConnection(mongoURI);

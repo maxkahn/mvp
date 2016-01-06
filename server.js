@@ -91,7 +91,7 @@ var app = express();
 
 app.use(cors());
 app.use(session({secret: 'ready for primetime'}));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 //TEMPORARILY, to test Heroku environment,
   //I'm serving a single file
 // app.use(express.static('public/index.html'));

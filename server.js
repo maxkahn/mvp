@@ -235,10 +235,10 @@ app.post('/', restrict, function(req, res) {
 });
 
 //remember that I'll need to change this when I deploy
-// var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
-app.listen(app.get('port'), function() {
-  console.log("Listening on " + app.get('port'));
+app.listen(3000, function() {
+  console.log("Listening on " + port);
 });
 
 //takes latitude and longitude,

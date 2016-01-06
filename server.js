@@ -19,50 +19,50 @@ var Admin = mongoose.mongo.Admin;
 //do I get any security features at all?
 //also, not totally clear on createConnection vs connect
 
-// var localMongo = 'mongodb://localhost:27017/app';
-// var mongoURI = process.env.MONGOLAB_URI || localMongo;
+var localMongo = 'mongodb://localhost:27017/app';
+var mongoURI = process.env.MONGOLAB_URI || localMongo;
 
 // //replace mongoURI with localMongo to run locally
-// var connection = mongoose.createConnection(mongoURI);
-// // connection.once('open', function() {
-// //   var userSchema = mongoose.Schema({
-// //     name: String,
-// //     password: String
-// //   });
-// //   var User = mongoose.model('User', userSchema);
-// //   //default user for testing purposes
-// //   var johndoe = new User({name: "John Doe", password: "password"});
-// // });
+var connection = mongoose.createConnection(mongoURI);
+connection.once('open', function() {
+  var userSchema = mongoose.Schema({
+    name: String,
+    password: String
+  });
+  var User = mongoose.model('User', userSchema);
+  //default user for testing purposes
+  var johndoe = new User({name: "John Doe", password: "password"});
+});
 
-// connection.once('open', function() {
-//   var placeSchema = mongoose.Schema({
-//     longi: Number,
-//     lat: Number,
-//     username: String 
-//   });
-// });
+connection.once('open', function() {
+  var placeSchema = mongoose.Schema({
+    longi: Number,
+    lat: Number,
+    username: String 
+  });
+});
 
 
 // //ideally, refactor to take the whole db section out of this file
 //   //i'm hoping there's no synchronicity issue
 //     //if there is, that would be bad
-//   var userSchema = mongoose.Schema({
-//     name: String,
-//     password: String
-//   });
-//   var User = connection.model('User', userSchema);
-//   //default user for testing purposes
-//   var johndoe = new User({name: "John Doe", password: "password"});
+  var userSchema = mongoose.Schema({
+    name: String,
+    password: String
+  });
+  var User = connection.model('User', userSchema);
+  //default user for testing purposes
+  var johndoe = new User({name: "John Doe", password: "password"});
 
 //   //time permitting, add some kind of id or password
 //     //users may have the same name
-//   var placeSchema = mongoose.Schema({
-//     longi: Number,
-//     lat: Number,
-//     username: String,
-//     sector: Number 
-//   });
-//   var Place = connection.model('Place', placeSchema);
+  var placeSchema = mongoose.Schema({
+    longi: Number,
+    lat: Number,
+    username: String,
+    sector: Number 
+  });
+  var Place = connection.model('Place', placeSchema);
 
 
   //***********
@@ -88,6 +88,8 @@ var restrict = function(req, res, next) {
 };
 
 var app = express();
+
+app.set('port', (process.env.PORT || 3000));
 
 app.use(cors());
 app.use(session({secret: 'ready for primetime'}));
@@ -233,10 +235,10 @@ app.post('/', restrict, function(req, res) {
 });
 
 //remember that I'll need to change this when I deploy
-var port = process.env.PORT || 3000;
+// var port = process.env.PORT || 3000;
 
-app.listen(port, function() {
-  console.log("Listening on " + port);
+app.listen(app.get('port'), function() {
+  console.log("Listening on " + app.get('port'));
 });
 
 //takes latitude and longitude,

@@ -1,12 +1,12 @@
 //there's undoubtedly a right way to do this
 //and that's so not the way I'm going for
-// var path = process.env.PATH || "http://localhost:3000";
+
 
 //pure jQuery
 $(document).ready(function() {
   $('.testing').on('click', function() {
     //somewhere in the body of this get, I have to just render the page they send back…
-    $.get("/login", function(data) {
+    $.get("http://localhost:3000/login", function(data) {
       console.log(data);
       if (data[0] && data[0] === '.') {
         window.location = data;
@@ -34,7 +34,7 @@ $(document).ready(function() {
 //   success: function() {console.log("message has left the client");},
 //   dataType: "application/json"
 // });
-        $.post("/", {x: x, y: y},
+        $.post("http://localhost:3000/", {x: x, y: y},
           function(data) {
             console.log(data);
           }, "content-type:application/json");
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
   $('.places-so-far').on('click', function() {
     console.log("AJAX get triggered");
-    $.getJSON("/refresh", function(data) {
+    $.getJSON("http://localhost:3000/refresh", function(data) {
       console.log("data received from AJAX get");
       console.log(data);
       //oh, we should *display* this data somewhere
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
   //think for 10 seconds! this is a GET, not a POST
   $('.new-place').on('click', function() {
-    $.getJSON("/new", function(data) {
+    $.getJSON("http://localhost:3000/new", function(data) {
       //data is an array of entries in the database
       //I want to create a red dot
       //and put that dot on the img
@@ -76,12 +76,14 @@ $(document).ready(function() {
         //ie the odd ticks from 0 to 2n-1, where n is the sidelength
       //so I need to extract a row and column
         //row is Math.ceil(data / sidelength)
-        var row = Math.ceil(data / 3) || 1;
+        var row = Math.ceil(data / 3);
         //column is data % sidelength + 1
-        var col = ((data - 1) % 3) + 1 || 1;
+        var col = ((data - 1) % 3) + 1;
       //then, I use the column to give me the x, and the row to give me the y
-      var cx = (col * 10) + 20;
-      var cy = (row * 16);
+      //cx is 30, 50, or 70, so col * 20 + 10 offset
+      var cx = (col * 20) + 10;
+      //cy is 16, 48, 80
+      var cy = (2 * row * 16) - 16;
       //a lot of the discussion above is full of magic numbers
         //I will fix that eventually, if I can get this working
       //given those three choices, multiplying by a fixed value that depends only on the sidelength

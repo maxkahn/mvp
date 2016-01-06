@@ -8,6 +8,10 @@ var MongoClient = require('mongodb');
 var mongoose = require('mongoose');
 var Admin = mongoose.mongo.Admin;
 
+
+//*********
+
+
 //this is code we'll have to change when we deploy
 //not sure I need to do this
 //if db does not exist; we'll start creating collections, right?
@@ -15,50 +19,53 @@ var Admin = mongoose.mongo.Admin;
 //do I get any security features at all?
 //also, not totally clear on createConnection vs connect
 
-var localMongo = 'mongodb://localhost:27017/app';
-var mongoURI = process.env.MONGOLAB_URI || localMongo;
+// var localMongo = 'mongodb://localhost:27017/app';
+// var mongoURI = process.env.MONGOLAB_URI || localMongo;
 
-//replace mongoURI with localMongo to run locally
-var connection = mongoose.createConnection(mongoURI);
+// //replace mongoURI with localMongo to run locally
+// var connection = mongoose.createConnection(mongoURI);
+// // connection.once('open', function() {
+// //   var userSchema = mongoose.Schema({
+// //     name: String,
+// //     password: String
+// //   });
+// //   var User = mongoose.model('User', userSchema);
+// //   //default user for testing purposes
+// //   var johndoe = new User({name: "John Doe", password: "password"});
+// // });
+
 // connection.once('open', function() {
+//   var placeSchema = mongoose.Schema({
+//     longi: Number,
+//     lat: Number,
+//     username: String 
+//   });
+// });
+
+
+// //ideally, refactor to take the whole db section out of this file
+//   //i'm hoping there's no synchronicity issue
+//     //if there is, that would be bad
 //   var userSchema = mongoose.Schema({
 //     name: String,
 //     password: String
 //   });
-//   var User = mongoose.model('User', userSchema);
+//   var User = connection.model('User', userSchema);
 //   //default user for testing purposes
 //   var johndoe = new User({name: "John Doe", password: "password"});
-// });
 
-connection.once('open', function() {
-  var placeSchema = mongoose.Schema({
-    longi: Number,
-    lat: Number,
-    username: String 
-  });
-});
+//   //time permitting, add some kind of id or password
+//     //users may have the same name
+//   var placeSchema = mongoose.Schema({
+//     longi: Number,
+//     lat: Number,
+//     username: String,
+//     sector: Number 
+//   });
+//   var Place = connection.model('Place', placeSchema);
 
 
-//ideally, refactor to take the whole db section out of this file
-  //i'm hoping there's no synchronicity issue
-    //if there is, that would be bad
-  var userSchema = mongoose.Schema({
-    name: String,
-    password: String
-  });
-  var User = connection.model('User', userSchema);
-  //default user for testing purposes
-  var johndoe = new User({name: "John Doe", password: "password"});
-
-  //time permitting, add some kind of id or password
-    //users may have the same name
-  var placeSchema = mongoose.Schema({
-    longi: Number,
-    lat: Number,
-    username: String,
-    sector: Number 
-  });
-  var Place = connection.model('Place', placeSchema);
+  //***********
 
 // connection.on('open', function() {
 //   new Admin(connection.db).listDatabases(function (err, result) {
